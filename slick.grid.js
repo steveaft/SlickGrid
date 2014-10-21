@@ -3167,7 +3167,23 @@ if (typeof Slick === "undefined") {
             return parseInt(cls[0].substr(1, cls[0].length - 1), 10);
         }
 
+        // https://github.com/JLynch7/SlickGrid/issues/62
         function getRowFromNode(rowNode) {
+            for (var row in rowsCache) {
+                var rowCacheNode = rowsCache[row].rowNode;
+                if (rowCacheNode && rowCacheNode.length) {
+                    for (var i = 0, l = rowCacheNode.length; i < l; i++) {
+                        if (rowCacheNode[i] === rowNode) {
+                            return row | 0;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        function xxgetRowFromNode(rowNode) {
             for (var row in rowsCache) {
                 if (rowsCache[row].rowNode[0] === rowNode[0]) {
                     return row | 0;
@@ -3195,6 +3211,30 @@ if (typeof Slick === "undefined") {
         }
 
         function getCellFromEvent(e) {
+
+            var $cell = $(e.target).closest(".slick-cell", $canvas);
+            if (!$cell.length) {
+                return null;
+            }
+
+            var row = getRowFromNode($cell[0].parentNode);
+            var cell = getCellFromNode($cell[0]);
+
+            if (row == null || cell == null) {
+                console.log("getCellFromEvent (null)");
+                return null;
+            } else {
+                console.log("getCellFromEvent x " + cell + " y " + row);
+
+                return {
+                    "row": row,
+                    "cell": cell
+                };
+            }
+        }
+
+        function xxgetCellFromEvent(e) {
+
             var $cell = $(e.target).closest(".slick-cell", $canvas);
             if (!$cell.length) {
                 return null;
