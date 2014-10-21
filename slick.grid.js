@@ -3057,9 +3057,8 @@ if (typeof Slick === "undefined") {
                             ) {
                             scrollRowIntoView(cell.row, false);
                         }
-
-                        setActiveCellInternal(getCellNode(cell.row, cell.cell));
                     }
+                    setActiveCellInternal(getCellNode(cell.row, cell.cell));
                 }
             }
         }
