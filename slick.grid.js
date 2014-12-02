@@ -800,10 +800,10 @@ if (typeof Slick === "undefined") {
                         });
                     }
                 });
-                
+
             $headerRowL.empty();
             $headerRowR.empty();
-            
+
             for (var i = 0; i < columns.length; i++) {
                 var m = columns[i];
 
@@ -812,7 +812,7 @@ if (typeof Slick === "undefined") {
 
                 var header = $("<div class='ui-state-default slick-header-column' />")
                     .html("<span class='slick-column-name'>" + m.name + "</span>")
-                    .width(m.width - headerColumnWidthDiff)
+                    .outerWidth(m.width - headerColumnWidthDiff)
                     .attr("id", "" + uid + m.id)
                     .attr("title", m.toolTip || "")
                     .data("column", m)
@@ -1024,6 +1024,7 @@ if (typeof Slick === "undefined") {
                         if (!getEditorLock().commitCurrentEdit()) {
                             return false;
                         }
+
                         pageX = e.pageX;
                         $(this).parent().addClass("slick-header-column-active");
                         var shrinkLeewayOnRight = null,
@@ -1081,10 +1082,12 @@ if (typeof Slick === "undefined") {
                         maxPageX = pageX + Math.min(shrinkLeewayOnRight, stretchLeewayOnLeft);
                         minPageX = pageX - Math.min(shrinkLeewayOnLeft, stretchLeewayOnRight);
                     }).bind("drag",function (e, dd) {
+
                         var actualMinWidth, d = Math.min(maxPageX, Math.max(minPageX, e.pageX)) - pageX,
                             x;
 
                         if (d < 0) { // shrink column
+
                             x = d;
 
                             var newCanvasWidthL = 0, newCanvasWidthR = 0;
@@ -1146,6 +1149,7 @@ if (typeof Slick === "undefined") {
                                 }
                             }
                         } else { // stretch column
+
                             x = d;
 
                             var newCanvasWidthL = 0, newCanvasWidthR = 0;
@@ -1577,8 +1581,8 @@ if (typeof Slick === "undefined") {
             for (var i = 0, headers = $headers.children(), ii = headers.length; i < ii; i++) {
                 h = $(headers[i]);
 
-                if (h.width() !== columns[i].width - headerColumnWidthDiff) {
-                    h.width(columns[i].width - headerColumnWidthDiff);
+                if (h.outerWidth() !== columns[i].width - headerColumnWidthDiff) {
+                    h.outerWidth(columns[i].width - headerColumnWidthDiff);
                 }
             }
 
@@ -3221,10 +3225,10 @@ if (typeof Slick === "undefined") {
             var cell = getCellFromNode($cell[0]);
 
             if (row == null || cell == null) {
-                console.log("getCellFromEvent (null)");
+                //console.log("getCellFromEvent (null)");
                 return null;
             } else {
-                console.log("getCellFromEvent x " + cell + " y " + row);
+                //console.log("getCellFromEvent x " + cell + " y " + row);
 
                 return {
                     "row": row,
