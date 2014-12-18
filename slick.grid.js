@@ -1982,14 +1982,8 @@ if (typeof Slick === "undefined") {
 
             // if there is a corresponding row (if not, this is the Add New row or this data hasn't been loaded yet)
             if (item) {
-
                 var value = getDataItemValueForColumn(item, m);
-                console.log('item ' + item + ' cell ' + cell + ' value ' + value);
-                var temp = getFormatter(row, m)(row, cell, value, m, item);
-                console.log('s ' + temp);
-
-                stringArray.push(temp);
-                //stringArray.push(getFormatter(row, m)(row, cell, value, m, item));
+                stringArray.push(getFormatter(row, m)(row, cell, value, m, item));
             }
 
             stringArray.push("</div>");
